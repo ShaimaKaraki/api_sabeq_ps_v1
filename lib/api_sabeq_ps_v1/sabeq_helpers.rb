@@ -10,7 +10,7 @@ module ApiSabeqPsV1
     # parameters: login_token
     # return: true, auth_token in case of success
     #         false, errors in case of failure, errors contain code and message
-    def authorize(login_token)
+    def sabeq_api_v1_authorize(login_token)
       auth_link = SABEQ_URL + "/api/v1/auth"
       auth_json = { login_token: login_token }
       json_response = make_post_request(auth_link, auth_json)
@@ -24,7 +24,7 @@ module ApiSabeqPsV1
     end
 
     # Verify the business profile
-    def verify_profile(auth_token, profile_id, api_key)
+    def sabeq_api_v1_verify_profile(auth_token, profile_id, api_key)
       auth_link = SABEQ_URL + "/api/v1/verify_business"
       auth_json = { auth_token: auth_token, profile_id: profile_id, api_key: api_key }
       json_response = make_post_request(auth_link, auth_json)
@@ -37,21 +37,21 @@ module ApiSabeqPsV1
       end
     end
 
-    def query_parcel(verification_token, parcel_number)
+    def sabeq_api_v1_query_parcel(verification_token, parcel_number)
       auth_link = SABEQ_URL + "/api/v1/parcels/#{parcel_number}"
       auth_json = { verification_token: verification_token }
       json_response = make_get_request(auth_link, auth_json)
       return json_response
     end
 
-    def get_areas(verification_token)
+    def sabeq_api_v1_get_areas(verification_token)
       auth_link = SABEQ_URL + "/api/v1/parcels/get_areas"
       auth_json = { verification_token: verification_token }
       json_response = make_get_request(auth_link, auth_json)
       return json_response
     end
 
-    def create_parcel(verification_token, name, phone1, phone2, content,
+    def sabeq_api_v1_create_parcel(verification_token, name, phone1, phone2, content,
                      payment_amount, area_id, address, delivery_notes)
       auth_link = SABEQ_URL + "/api/v1/parcels"
       auth_json = { verification_token: verification_token,
