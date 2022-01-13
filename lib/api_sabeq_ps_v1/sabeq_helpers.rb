@@ -52,13 +52,14 @@ module ApiSabeqPsV1
     end
 
     def sabeq_api_v1_create_parcel(verification_token, name, phone1, phone2, content,
-                     payment_amount, area_id, address, delivery_notes)
+                     payment_amount, area_id, address, delivery_notes, special_notes)
       auth_link = SABEQ_URL + "/api/v1/parcels"
       auth_json = { verification_token: verification_token,
                     name: name, phone1: phone1, phone2: phone2,
                     content: content, payment_amount: payment_amount,
                     area_id: area_id, address: address,
-                    delivery_notes: delivery_notes }
+                    delivery_notes: delivery_notes,
+                    special_notes: special_notes }
       json_response = make_post_request(auth_link, auth_json)
 
       return json_response
