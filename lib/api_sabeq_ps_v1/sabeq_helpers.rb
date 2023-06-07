@@ -65,6 +65,29 @@ module ApiSabeqPsV1
       return json_response
     end
 
+    def sabeq_api_v1_1_create_parcel(verification_token, name, phone1, phone2, content,
+                     payment_amount, area_id, street_id, address, service_type,
+                     delivery_notes, special_notes)
+      auth_link = SABEQ_URL + "/api/v1/parcels"
+      auth_json = { verification_token: verification_token,
+                    name: name, phone1: phone1, phone2: phone2,
+                    content: content, payment_amount: payment_amount,
+                    area_id: area_id, street_id: street_id, address: address,
+                    service_type: service_type,
+                    delivery_notes: delivery_notes,
+                    special_notes: special_notes }
+      json_response = make_post_request(auth_link, auth_json)
+
+      return json_response
+    end
+
+    def sabeq_api_v1_cancel_parcel(verification_token, parcel_number)
+      auth_link = SABEQ_URL + "/api/v1/parcels/#{parcel_number}/cancel_parcel"
+      auth_json = { verification_token: verification_token }
+      json_response = make_get_request(auth_link, auth_json)
+      return json_response
+    end
+
     private
       def make_post_request(url_link, json_content)
         uri = URI.parse(url_link)
