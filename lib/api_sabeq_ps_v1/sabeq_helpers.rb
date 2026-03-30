@@ -98,6 +98,21 @@ module ApiSabeqPsV1
       return json_response
     end
 
+    def sabeq_api_v1_update_parcel(verification_token, collect_money, name, phone1, phone2, content, address, area_id)
+      auth_link = SABEQ_URL + "/api/v1/parcels/#{parcel_number}"
+      auth_json = { verification_token: verification_token,
+                    payment_amount: collect_money,
+                    customer_name: name,
+                    phone1: phone1,
+                    phone2: phone2,
+                    content: content,
+                    address: address,
+                    area_id: area_id }
+      json_response = make_patch_request(auth_link, auth_json)
+
+      return json_response
+    end
+
     def sabeq_api_v1_cancel_parcel(verification_token, parcel_number)
       auth_link = SABEQ_URL + "/api/v1/parcels/#{parcel_number}/cancel_parcel"
       auth_json = { verification_token: verification_token }
@@ -123,6 +138,16 @@ module ApiSabeqPsV1
         the_params = json_content
         uri.query = URI.encode_www_form(the_params)
         a_request = Net::HTTP::Get.new(uri.request_uri)
+        a_response = http.request(a_request)
+        return a_response.body
+      end
+
+      def make_patch_request(url_link, json_content)
+        uri = URI.parse(url_link)
+        http = Net::HTTP.new(uri.host, uri.port)
+        #http.use_ssl = true
+        a_request = Net::HTTP::Patch.new(uri.request_uri, REQUEST_HEADER)
+        a_request.body = json_content.to_json
         a_response = http.request(a_request)
         return a_response.body
       end

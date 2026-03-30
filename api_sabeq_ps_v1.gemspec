@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "gem for sabeq.ps API helper functionalities"
   spec.description   = "Its a gem for sabeq.ps API helper functionalities"
-  spec.homepage      = "https://github.com/ShaimaKaraki/s_api.git"
+  spec.homepage      = "https://github.com/ShaimaKaraki/api_sabeq_ps_v1.git"
   spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
