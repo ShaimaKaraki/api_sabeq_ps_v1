@@ -98,7 +98,7 @@ module ApiSabeqPsV1
       return json_response
     end
 
-    def sabeq_api_v1_update_parcel(verification_token, collect_money, name, phone1, phone2, content, address, area_id)
+    def sabeq_api_v1_update_parcel(verification_token, parcel_number, collect_money, name, phone1, phone2, content, address, area_id, street_id)
       auth_link = SABEQ_URL + "/api/v1/parcels/#{parcel_number}"
       auth_json = { verification_token: verification_token,
                     payment_amount: collect_money,
@@ -107,7 +107,8 @@ module ApiSabeqPsV1
                     phone2: phone2,
                     content: content,
                     address: address,
-                    area_id: area_id }
+                    area_id: area_id,
+                    street_id:  street_id}
       json_response = make_patch_request(auth_link, auth_json)
 
       return json_response
