@@ -146,7 +146,7 @@ module ApiSabeqPsV1
       def make_patch_request(url_link, json_content)
         uri = URI.parse(url_link)
         http = Net::HTTP.new(uri.host, uri.port)
-        #http.use_ssl = true
+        http.use_ssl = true
         a_request = Net::HTTP::Patch.new(uri.request_uri, REQUEST_HEADER)
         a_request.body = json_content.to_json
         a_response = http.request(a_request)
