@@ -44,6 +44,27 @@ module ApiSabeqPsV1
       return json_response
     end
 
+    def sabeq_api_v1_print_parcel(verification_token, parcel_number, the_size = "default")
+      url = SABEQ_URL + "/api/v1/parcels/#{parcel_number}/print"
+
+      params = {
+        verification_token: verification_token,
+        size: the_size
+      }
+
+      uri = URI.parse(url)
+      uri.query = URI.encode_www_form(params)
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+
+      request = Net::HTTP::Get.new(uri.request_uri)
+      response = http.request(request)
+
+      # IMPORTANT: return raw HTML, not JSON parsing
+      response.body
+    end
+
     def sabeq_api_v1_get_areas(verification_token)
       auth_link = SABEQ_URL + "/api/v1/parcels/get_areas"
       auth_json = { verification_token: verification_token }
